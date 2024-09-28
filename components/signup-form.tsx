@@ -69,7 +69,9 @@ export function SignUpForm() {
         />
       </div>
 
-      <Button className="px-24 py-8">SIGN UP</Button>
+      <Button disabled={signUpMutation.isPending} className="px-24 py-6">
+        SIGN UP
+      </Button>
     </form>
   );
 }

@@ -56,7 +56,11 @@ export function SignInForm() {
         />
       </div>
 
-      <Button type="submit" className="px-24 py-8 font-bold">
+      <Button
+        disabled={signInMutation.isPending}
+        type="submit"
+        className="px-24 py-6 font-bold"
+      >
         SIGN IN
       </Button>
     </form>
