@@ -1,6 +1,7 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { saveSession } from "./actions";
 
 export function signUp() {
   const router = useRouter();
@@ -48,7 +49,7 @@ export function signIn() {
       if (data.status === 200) {
         const response = await data.json();
 
-        localStorage.setItem("accessToken", response.accessToken);
+        await saveSession(response.accessToken);
 
         router.replace("/main");
       } else {
