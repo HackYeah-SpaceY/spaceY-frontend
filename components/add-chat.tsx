@@ -9,7 +9,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Check, PlusIcon } from "lucide-react";
 import { useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export function AddChat() {
   const [input, setInput] = useState<string>("");

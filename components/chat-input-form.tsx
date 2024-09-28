@@ -3,8 +3,8 @@
 import { Send } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { createChat } from "@/lib/queries";
-import { useEffect, useState } from "react";
+import { useCreateChat } from "@/lib/queries";
+import { MouseEvent, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export function ChatInputForm() {
@@ -14,7 +14,7 @@ export function ChatInputForm() {
 
   const isAddingChat = !!url;
 
-  const createChatMutation = createChat();
+  const createChatMutation = useCreateChat();
 
   const [input, setInput] = useState<string>("");
 
@@ -26,7 +26,7 @@ export function ChatInputForm() {
     }
   }, [createChatMutation.data]);
 
-  const handleClick = (e: Event) => {
+  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     if (isAddingChat) {
@@ -49,7 +49,7 @@ export function ChatInputForm() {
       />
       <Button
         disabled={createChatMutation.isPending}
-        onClick={(e: any) => handleClick(e)}
+        onClick={(e) => handleClick(e)}
         className="absolute right-4 hover:bg-transparent"
         variant={"ghost"}
       >

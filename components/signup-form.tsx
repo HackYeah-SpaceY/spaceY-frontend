@@ -6,11 +6,11 @@ import { Input } from "./ui/input";
 import { LockIcon, UserIcon } from "lucide-react";
 import { emailSchema, passwordSchema } from "@/lib/validations";
 import { toast } from "sonner";
-import { signUp } from "@/lib/queries";
+import { useSignUp } from "@/lib/queries";
 import Link from "next/link";
 
 export function SignUpForm() {
-  const signUpMutation = signUp();
+  const signUpMutation = useSignUp();
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -1,12 +1,12 @@
 "use client";
 
-import { getOldChats } from "@/lib/queries";
+import { useGetOldChats } from "@/lib/queries";
 import Link from "next/link";
 
 export function OldChats() {
-  const chats = getOldChats();
+  const chats = useGetOldChats();
 
-  return chats?.data?.map((chat: any) => {
+  return chats?.data?.map((chat: { id: string; title: string }) => {
     return (
       <div className="flex" key={chat.id}>
         <Link

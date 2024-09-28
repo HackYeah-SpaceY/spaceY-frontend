@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { saveSession } from "./actions";
 import { useCookies } from "next-client-cookies";
 
-export function signUp() {
+export function useSignUp() {
   const router = useRouter();
 
   return useMutation({
@@ -21,8 +21,15 @@ export function signUp() {
       console.log(err);
     },
     mutationKey: ["signup"],
-    // TODO: Fix this any
-    mutationFn: async ({ email, password, confirmPassword }: any) => {
+    mutationFn: async ({
+      email,
+      password,
+      confirmPassword,
+    }: {
+      email: string;
+      password: string;
+      confirmPassword: string;
+    }) => {
       return await fetch(
         "https://spaceywebapi-development.up.railway.app/auth/register",
         {
@@ -42,7 +49,7 @@ export function signUp() {
   });
 }
 
-export function signIn() {
+export function useSignIn() {
   const router = useRouter();
 
   return useMutation({
@@ -62,7 +69,13 @@ export function signIn() {
       console.log(err);
     },
     mutationKey: ["signin"],
-    mutationFn: async ({ email, password }: any) => {
+    mutationFn: async ({
+      email,
+      password,
+    }: {
+      email: string;
+      password: string;
+    }) => {
       return await fetch(
         "https://spaceywebapi-development.up.railway.app/auth/login",
         {
@@ -81,12 +94,12 @@ export function signIn() {
   });
 }
 
-export function createChat() {
+export function useCreateChat() {
   const queryClient = useQueryClient();
   const cookies = useCookies();
 
   return useMutation({
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries();
     },
     onError: (err) => {
@@ -94,7 +107,7 @@ export function createChat() {
       console.log(err);
     },
     mutationKey: ["createChat"],
-    mutationFn: async ({ url, content }: any) => {
+    mutationFn: async ({ url, content }: { url: string; content: string }) => {
       const token = cookies.get("accessToken");
 
       return await (
@@ -107,10 +120,9 @@ export function createChat() {
           },
           body: JSON.stringify({
             url: url,
-            title: `${content.split(0, 10)}...`,
+            title: `${content.slice(0, 10)}...`,
             message: {
               content: content,
-
               isFromUser: true,
             },
           }), // Stringify the body
@@ -120,7 +132,7 @@ export function createChat() {
   });
 }
 
-export function getChat(id: string) {
+export function useGetChat(id: string) {
   const cookies = useCookies();
 
   return useQuery({
@@ -144,7 +156,7 @@ export function getChat(id: string) {
   });
 }
 
-export function getOldChats() {
+export function useGetOldChats() {
   const cookies = useCookies();
 
   return useQuery({

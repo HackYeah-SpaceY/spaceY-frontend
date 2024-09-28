@@ -5,8 +5,11 @@ export function ChatHistory({
 }) {
   return (
     <div className="p-6">
-      {history.map((his) => (
-        <div className="bg-primary text-white p-12 py-4  rounded-md w-fit">
+      {history.map((his, index) => (
+        <div
+          key={index}
+          className="bg-primary text-white p-12 py-4  rounded-md w-fit"
+        >
           {his.content}
         </div>
       ))}

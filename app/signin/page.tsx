@@ -14,7 +14,7 @@ export default async function SignIn() {
       <Logo />
       <SignInForm />
       <Link href={"/signup"} className="text-slate-400">
-        Don't have an account? <span className="text-black">Sign Up</span>.
+        Don&apos;t have an account? <span className="text-black">Sign Up</span>.
       </Link>
     </div>
   );

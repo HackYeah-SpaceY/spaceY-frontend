@@ -6,10 +6,10 @@ import { Input } from "./ui/input";
 import { LockIcon, UserIcon } from "lucide-react";
 import { emailSchema, passwordSchema } from "@/lib/validations";
 import { toast } from "sonner";
-import { signIn } from "@/lib/queries";
+import { useSignIn } from "@/lib/queries";
 
 export function SignInForm() {
-  const signInMutation = signIn();
+  const signInMutation = useSignIn();
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
