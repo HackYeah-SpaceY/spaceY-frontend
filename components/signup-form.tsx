@@ -6,8 +6,11 @@ import { Input } from "./ui/input";
 import { LockIcon, UserIcon } from "lucide-react";
 import { passwordSchema, usernameSchema } from "@/lib/validations";
 import { toast } from "sonner";
+import { signUp } from "@/lib/queries";
 
 export function SignUpForm() {
+  const signUpMutation = signUp();
+
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -18,7 +21,6 @@ export function SignUpForm() {
 
     const usernameParsed = usernameSchema.safeParse(username);
     const passwordParsed = passwordSchema.safeParse(password);
-    const passwordAgainParsed = passwordSchema.safeParse(password);
 
     if (usernameParsed.error || passwordParsed.error) {
       usernameParsed?.error?.errors.forEach((error) => {
@@ -38,12 +40,12 @@ export function SignUpForm() {
       return;
     }
 
-    // Save user in here with fetch
-
-    const isAuthenticated = true;
-
-    if (isAuthenticated) {
-    }
+    // TODO: Change username to email
+    signUpMutation.mutate({
+      email: usernameParsed.data,
+      password: passwordParsed.data,
+      confirmPassword: passwordParsed.data,
+    });
   };
 
   return (

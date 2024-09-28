@@ -1,7 +1,4 @@
 import { SignUpForm } from "@/components/signup-form";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { LockIcon, UserIcon } from "lucide-react";
 
 export default function SignUp() {
   return (

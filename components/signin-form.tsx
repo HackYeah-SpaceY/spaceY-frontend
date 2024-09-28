@@ -6,8 +6,11 @@ import { Input } from "./ui/input";
 import { LockIcon, UserIcon } from "lucide-react";
 import { passwordSchema, usernameSchema } from "@/lib/validations";
 import { toast } from "sonner";
+import { signIn } from "@/lib/queries";
 
 export function SignInForm() {
+  const signInMutation = signIn();
+
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -30,12 +33,10 @@ export function SignInForm() {
       return;
     }
 
-    // Authenticate user in here with fetch
-
-    const isAuthenticated = true;
-
-    if (isAuthenticated) {
-    }
+    signInMutation.mutate({
+      email: usernameParsed.data,
+      password: passwordParsed.data,
+    });
   };
 
   return (
@@ -47,7 +48,12 @@ export function SignInForm() {
 
       <div className="flex items-center gap-x-4">
         <LockIcon size={48} />
-        <Input name="password" required placeholder="Password" />
+        <Input
+          type="password"
+          name="password"
+          required
+          placeholder="Password"
+        />
       </div>
 
       <Button type="submit" className="px-24 py-8 font-bold">
