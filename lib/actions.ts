@@ -7,3 +7,9 @@ export async function saveSession(token: string) {
 
   return true;
 }
+
+export async function logout() {
+  cookies().delete("accessToken");
+
+  return true;
+}
