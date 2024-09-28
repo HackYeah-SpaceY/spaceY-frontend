@@ -38,7 +38,7 @@ export function SignUpForm() {
       return;
     }
 
-    // Authenticate user in here with fetch
+    // Save user in here with fetch
 
     const isAuthenticated = true;
 
