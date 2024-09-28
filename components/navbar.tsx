@@ -4,16 +4,16 @@ import { Button } from "./ui/button";
 export function Navbar() {
   return (
     <div className="w-full flex h-16 bg-[#313235]">
-      <div className="w-16 flex mr-4 items-center justify-center h-full bg-[#EDEDED]">
+      <button className="w-16 flex mr-4 items-center justify-center h-full bg-[#EDEDED]">
         <ArchiveIcon size={32} />
-      </div>
+      </button>
 
-      <div className="flex justify-center flex-col items-center">
+      <button className="flex justify-center flex-col items-center px-4 my-1 hover:bg-[#4d5055]/50">
         <div className="text-[#EDEDED] text-sm">hifi.ng</div>
         <div className="text-[#EDEDED] font-semibold text-sm">
           Checking the price
         </div>
-      </div>
+      </button>
 
       <div className="h-[80%] my-auto ml-4 w-[1px] bg-[#EDEDED]"></div>
 
