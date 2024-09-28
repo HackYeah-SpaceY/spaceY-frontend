@@ -1,5 +1,6 @@
-import { ArchiveIcon, PlusIcon } from "lucide-react";
-import { Button } from "./ui/button";
+import { ArchiveIcon, Check, PlusIcon } from "lucide-react";
+import { OldChats } from "./old-chats";
+import { AddChat } from "./add-chat";
 
 export function Navbar() {
   return (
@@ -8,21 +9,9 @@ export function Navbar() {
         <ArchiveIcon size={32} />
       </button>
 
-      <button className="flex justify-center flex-col items-center px-4 my-1 hover:bg-[#4d5055]/50">
-        <div className="text-[#EDEDED] text-sm">hifi.ng</div>
-        <div className="text-[#EDEDED] font-semibold text-sm">
-          Checking the price
-        </div>
-      </button>
+      <OldChats />
 
-      <div className="h-[80%] my-auto ml-4 w-[1px] bg-[#EDEDED]"></div>
-
-      <Button
-        variant={"ghost"}
-        className="h-[90%] my-auto hover:bg-transparent flex  items-center justify-center"
-      >
-        <PlusIcon size={36} color="#EDEDED" />
-      </Button>
+      <AddChat />
     </div>
   );
 }
