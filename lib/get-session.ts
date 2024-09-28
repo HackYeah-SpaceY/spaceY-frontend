@@ -17,5 +17,7 @@ export async function getSession() {
     }
   );
 
+  if (response.status !== 200) return null;
+
   return await response.json();
 }

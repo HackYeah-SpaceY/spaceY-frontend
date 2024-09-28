@@ -15,7 +15,6 @@ export function AddChat() {
   const [input, setInput] = useState<string>("");
 
   const searchParams = useSearchParams();
-  const pathname = usePathname();
   const { replace } = useRouter();
 
   function handleAdd(term: string) {

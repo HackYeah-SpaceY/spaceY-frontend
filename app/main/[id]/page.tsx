@@ -1,35 +1,40 @@
+import { ChatHistory } from "@/components/chat-history";
+import { ChatInputForm } from "@/components/chat-input-form";
+import { CurrentURL } from "@/components/current-url";
 import { Navbar } from "@/components/navbar";
-import { Input } from "@/components/ui/input";
-import { Globe, Send } from "lucide-react";
+import { redirect } from "next/navigation";
 
-export default function Main({ params }: { params: { id: string } }) {
+export default async function Main({ params }: { params: { id: string } }) {
   const id = params.id;
+
+  const chatFetch = await fetch(
+    `https://spaceywebapi-development.up.railway.app/chats/${id}`,
+    {
+      headers: {
+        accept: "*/*",
+        "Content-Type": "application/json",
+        authorization:
+          "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJzZXJrYW5AZ21haWwuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI0MzYyZmU0OS1kYTZkLTRiZmMtODA3OC1iODUzZTYxZmY3OTIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoic2Vya2FuQGdtYWlsLmNvbSIsImV4cCI6MTcyNzU2MDMzMywiaXNzIjoiaHR0cHM6Ly9zcGFjZXl3ZWJhcGktZGV2ZWxvcG1lbnQudXAucmFpbHdheS5hcHAiLCJhdWQiOiJodHRwczovL3NwYWNleXdlYmFwaS1kZXZlbG9wbWVudC51cC5yYWlsd2F5LmFwcCJ9.hEAPJ1JmX7Xv1JZqNF-HKZlfYn4bRYdSCQKVqHdQU0j6Od-2IykTADRK9rrP7R1VPSAgvrXl_tJUKTNq6UppKQ",
+      },
+    }
+  );
+
+  if (chatFetch.status !== 200) return redirect("/main");
+
+  const response = await chatFetch.json();
 
   return (
     <div className="w-full flex flex-col min-h-[100dvh] ">
       <Navbar />
 
-      <div className="w-[80%] h-full  mx-auto pt-8">
-        <div className="w-full h-12 flex">
-          <div className="w-16 flex items-center justify-center h-full bg-[#313235]">
-            <Globe size={24} color="#EDEDED" />
-          </div>
-          <div className="w-full h-full text-[#313235] flex items-center pl-4 font-semibold bg-[#EDEDED]">
-            hifi.ng
-          </div>
-        </div>
-      </div>
+      <CurrentURL url={response.url} />
 
       <div className="flex gap-x-8 flex-1 py-8 w-[80%] mx-auto">
         <div className="min-h-[80%] w-full bg-[#EDEDED]"></div>
         <div className="min-h-full relative w-full bg-[#EDEDED]">
-          <div className="absolute w-full flex items-center justify-between bottom-0 left-0">
-            <Input
-              className="w-full flex justify-between items-center  px-4 font-sans border-2 p-2 h-10 rounded-none border-[#313235] "
-              placeholder="What action to perform on the website?"
-            />
-            <Send className="absolute right-4" />
-          </div>
+          <ChatHistory history={response.messages} />
+
+          <ChatInputForm />
         </div>
       </div>
     </div>

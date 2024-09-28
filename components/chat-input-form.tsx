@@ -6,12 +6,13 @@ import { Input } from "./ui/input";
 import { createChat } from "@/lib/queries";
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { toast } from "sonner";
 
 export function ChatInputForm() {
   const searchParams = useSearchParams();
 
   const url = searchParams.get("addChat");
+
+  const isAddingChat = !!url;
 
   const createChatMutation = createChat();
 
@@ -19,11 +20,14 @@ export function ChatInputForm() {
 
   const handleClick = (e: Event) => {
     e.preventDefault();
-
-    createChatMutation.mutate({
-      url: url,
-      content: input,
-    });
+    if (isAddingChat) {
+      createChatMutation.mutate({
+        url: url,
+        content: input,
+      });
+    } else {
+      // Update with id and content
+    }
   };
 
   return (

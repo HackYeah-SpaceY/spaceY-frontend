@@ -1,10 +1,6 @@
 import { ChatInputForm } from "@/components/chat-input-form";
 import { CurrentURL } from "@/components/current-url";
 import { Navbar } from "@/components/navbar";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Globe, Send } from "lucide-react";
-import { redirect } from "next/navigation";
 
 export default function Main({
   searchParams,
