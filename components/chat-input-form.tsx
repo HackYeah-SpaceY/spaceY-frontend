@@ -4,8 +4,8 @@ import { Send } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { createChat } from "@/lib/queries";
-import { useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export function ChatInputForm() {
   const searchParams = useSearchParams();
@@ -18,8 +18,17 @@ export function ChatInputForm() {
 
   const [input, setInput] = useState<string>("");
 
+  const router = useRouter();
+
+  useEffect(() => {
+    if (createChatMutation.data?.chatId) {
+      router.replace(`main/${createChatMutation.data.chatId}`);
+    }
+  }, [createChatMutation.data]);
+
   const handleClick = (e: Event) => {
     e.preventDefault();
+
     if (isAddingChat) {
       createChatMutation.mutate({
         url: url,
@@ -39,6 +48,7 @@ export function ChatInputForm() {
         placeholder="What action to perform on the website?"
       />
       <Button
+        disabled={createChatMutation.isPending}
         onClick={(e: any) => handleClick(e)}
         className="absolute right-4 hover:bg-transparent"
         variant={"ghost"}

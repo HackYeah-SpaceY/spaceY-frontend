@@ -4,7 +4,7 @@ import { FormEvent } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { LockIcon, UserIcon } from "lucide-react";
-import { passwordSchema, usernameSchema } from "@/lib/validations";
+import { emailSchema, passwordSchema } from "@/lib/validations";
 import { toast } from "sonner";
 import { signIn } from "@/lib/queries";
 
@@ -15,14 +15,14 @@ export function SignInForm() {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-    const username = formData.get("username");
+    const email = formData.get("email");
     const password = formData.get("password");
 
-    const usernameParsed = usernameSchema.safeParse(username);
+    const emailParsed = emailSchema.safeParse(email);
     const passwordParsed = passwordSchema.safeParse(password);
 
-    if (usernameParsed.error || passwordParsed.error) {
-      usernameParsed?.error?.errors.forEach((error) => {
+    if (emailParsed.error || passwordParsed.error) {
+      emailParsed?.error?.errors.forEach((error) => {
         toast.warning(error.message);
       });
 
@@ -34,7 +34,7 @@ export function SignInForm() {
     }
 
     signInMutation.mutate({
-      email: usernameParsed.data,
+      email: emailParsed.data,
       password: passwordParsed.data,
     });
   };
@@ -43,7 +43,7 @@ export function SignInForm() {
     <form onSubmit={onSubmit} className="flex flex-col gap-y-4">
       <div className="flex items-center gap-x-4">
         <UserIcon size={48} />
-        <Input name="username" required placeholder="Username" />
+        <Input name="email" required placeholder="Email" type="email" />
       </div>
 
       <div className="flex items-center gap-x-4">

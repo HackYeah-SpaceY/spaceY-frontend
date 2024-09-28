@@ -4,9 +4,10 @@ import { FormEvent } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { LockIcon, UserIcon } from "lucide-react";
-import { passwordSchema, usernameSchema } from "@/lib/validations";
+import { emailSchema, passwordSchema } from "@/lib/validations";
 import { toast } from "sonner";
 import { signUp } from "@/lib/queries";
+import Link from "next/link";
 
 export function SignUpForm() {
   const signUpMutation = signUp();
@@ -15,15 +16,15 @@ export function SignUpForm() {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-    const username = formData.get("username");
+    const email = formData.get("email");
     const password = formData.get("password");
     const passwordAgain = formData.get("passwordAgain");
 
-    const usernameParsed = usernameSchema.safeParse(username);
+    const emailParsed = emailSchema.safeParse(email);
     const passwordParsed = passwordSchema.safeParse(password);
 
-    if (usernameParsed.error || passwordParsed.error) {
-      usernameParsed?.error?.errors.forEach((error) => {
+    if (emailParsed.error || passwordParsed.error) {
+      emailParsed?.error?.errors.forEach((error) => {
         toast.warning(error.message);
       });
 
@@ -40,9 +41,8 @@ export function SignUpForm() {
       return;
     }
 
-    // TODO: Change username to email
     signUpMutation.mutate({
-      email: usernameParsed.data,
+      email: emailParsed.data,
       password: passwordParsed.data,
       confirmPassword: passwordParsed.data,
     });
@@ -52,7 +52,7 @@ export function SignUpForm() {
     <form onSubmit={onSubmit} className="flex flex-col gap-y-4">
       <div className="flex items-center gap-x-4">
         <UserIcon size={48} />
-        <Input name="username" placeholder="Username" />
+        <Input name="email" placeholder="Email" type="email" />
       </div>
 
       <div className="flex items-center gap-x-4">
@@ -72,6 +72,10 @@ export function SignUpForm() {
       <Button disabled={signUpMutation.isPending} className="px-24 py-6">
         SIGN UP
       </Button>
+
+      <Link href={"/signin"} className="text-slate-400 mx-auto">
+        Have an account? <span className="text-black">Sign In</span>.
+      </Link>
     </form>
   );
 }

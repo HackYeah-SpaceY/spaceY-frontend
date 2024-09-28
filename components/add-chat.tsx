@@ -32,6 +32,7 @@ export function AddChat() {
     <Popover>
       <PopoverTrigger asChild>
         <Button
+          title="Add Website"
           variant={"ghost"}
           className="h-[90%] my-auto hover:bg-transparent flex  items-center justify-center"
         >
@@ -42,6 +43,9 @@ export function AddChat() {
         <div className="flex flex-col gap-y-2 w-full">
           <div>Enter website URL</div>
           <Input
+            type="url"
+            required
+            placeholder="hackyeah.pl"
             onChange={(e) => setInput(e.target.value)}
             className="border border-[#313235] py-2"
           />

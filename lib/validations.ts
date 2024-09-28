@@ -1,9 +1,8 @@
 import { z } from "zod";
 
-export const usernameSchema = z
-  .string({ message: "Username must be a string." })
-  .min(0, { message: "Username should be longer than 0 character." })
-  .max(16, { message: "Username cannot be longer than 16 characters." });
+export const emailSchema = z
+  .string({ message: "Email must be a string." })
+  .min(0, { message: "Email should be longer than 0 character." });
 
 // We can do a better schema
 export const passwordSchema = z
