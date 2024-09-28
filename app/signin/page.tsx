@@ -1,6 +1,4 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { LockIcon, UserIcon } from "lucide-react";
+import { SignInForm } from "@/components/signin-form";
 
 export default function SignIn() {
   return (
@@ -9,19 +7,7 @@ export default function SignIn() {
         LOGO
       </h1>
 
-      <form className="flex flex-col gap-y-6">
-        <div className="flex items-center gap-x-4">
-          <UserIcon size={48} />
-          <Input placeholder="Username" />
-        </div>
-
-        <div className="flex items-center gap-x-4">
-          <LockIcon size={48} />
-          <Input placeholder="Password" />
-        </div>
-
-        <Button className="px-24 py-8 font-bold">SIGN IN</Button>
-      </form>
+      <SignInForm />
     </div>
   );
 }
