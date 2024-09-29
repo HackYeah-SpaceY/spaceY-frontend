@@ -73,12 +73,11 @@ export function ChatInputForm({ id }: { id?: string }) {
         <Send />
       </Button>
 
-      {createChatMutation.isPending ||
-        (updateChatMutation.isPending && (
-          <div className="absolute bottom-0 z-10 animate-[slidein] duration-700 translate-y-0 fill-mode-forwards bg-black text-white rounded-md px-2 py-1 font-semibold">
-            Cooking the answer...
-          </div>
-        ))}
+      {(createChatMutation.isPending || updateChatMutation.isPending) && (
+        <div className="absolute bottom-0 z-10 animate-[slidein] duration-700 translate-y-0 fill-mode-forwards bg-black text-white rounded-md px-2 py-1 font-semibold">
+          Cooking the answer...
+        </div>
+      )}
     </form>
   );
 }

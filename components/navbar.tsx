@@ -12,7 +12,7 @@ export function Navbar() {
   return (
     <div className="w-full max-w-full overflow-x-scroll flex h-20 bg-[#313235]">
       <Popover>
-        <PopoverTrigger>
+        <PopoverTrigger asChild>
           <button className="min-w-16 flex mr-4 items-center justify-center h-full bg-[#EDEDED]">
             <ArchiveIcon size={32} />
           </button>
