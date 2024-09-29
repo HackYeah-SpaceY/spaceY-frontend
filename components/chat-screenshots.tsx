@@ -1,7 +1,6 @@
 "use client";
 
 import { useGetChat } from "@/lib/queries";
-import { cn } from "@/lib/utils";
 import Image from "next/image";
 
 export function ChatScreenshots({ id }: { id: string }) {
