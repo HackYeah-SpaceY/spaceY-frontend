@@ -1,7 +1,9 @@
 "use client";
 
 import { useGetChat } from "@/lib/queries";
+import { speakText } from "@/lib/tts";
 import { cn } from "@/lib/utils";
+import { Volume2 } from "lucide-react";
 
 export function ChatHistory({ id }: { id: string }) {
   const history = useGetChat(id);
@@ -20,6 +22,14 @@ export function ChatHistory({ id }: { id: string }) {
       </div>
     );
 
+  const handleTTL = (content: string) => {
+    if (window.speechSynthesis.speaking) {
+      window.speechSynthesis.cancel();
+    } else {
+      speakText(content);
+    }
+  };
+
   return (
     <div className="p-6 flex flex-col gap-y-9 max-h-[600px] pt-12 overflow-y-auto">
       {history.data?.messages?.map(
@@ -34,12 +44,22 @@ export function ChatHistory({ id }: { id: string }) {
             )}
           >
             <div
-              className={cn("absolute text-black -top-6 left-0", {
+              className={cn("absolute text-black -top-7 left-0", {
                 "left-auto right-0": his.isFromUser,
               })}
             >
               {his.isFromUser ? "You" : "Chef"}
             </div>
+
+            <button
+              onClick={() => handleTTL(his.content)}
+              aria-label="Play message"
+              className={cn("absolute -top-7 left-12", {
+                "right-10 left-auto": his.isFromUser,
+              })}
+            >
+              <Volume2 color="black" />
+            </button>
 
             {his.content}
           </div>
