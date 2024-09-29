@@ -6,15 +6,27 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button } from "./ui/button";
-import { ArchiveIcon, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, User2 } from "lucide-react";
 import { useArchiveChat, useGetOldChats } from "@/lib/queries";
 import Link from "next/link";
 import { toast } from "sonner";
+import { useCookies } from "next-client-cookies";
+import { jwtDecode } from "jwt-decode";
+import { Logout } from "./ui/logout";
 
 export function Archive({ id }: { id?: string }) {
   const chats = useGetOldChats();
 
   const archiveChatMutation = useArchiveChat(id || "undefined");
+
+  const token = useCookies().get("accessToken");
+
+  const decoded = jwtDecode(token || "") as any;
+
+  const email =
+    decoded[
+      "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"
+    ];
 
   if (chats.isLoading)
     return (
@@ -22,7 +34,7 @@ export function Archive({ id }: { id?: string }) {
         disabled
         className="min-w-16 flex mr-4 items-center justify-center h-full bg-[#EDEDED]"
       >
-        <ArchiveIcon size={32} />
+        <User2 size={32} />
       </button>
     );
   if (chats.isError) return <div className="text-white">Error</div>;
@@ -45,11 +57,19 @@ export function Archive({ id }: { id?: string }) {
     <Popover>
       <PopoverTrigger asChild>
         <button className="min-w-16 flex mr-4 items-center justify-center h-full bg-[#EDEDED]">
-          <ArchiveIcon size={32} />
+          <User2 size={32} />
         </button>
       </PopoverTrigger>
-      <PopoverContent>
-        <h1 className="text-xl font-semibold">Archived Chats</h1>
+      <PopoverContent className="min-w-[500px]">
+        <div className="flex justify-between items-center">
+          <div>Welcome, {email}</div>
+
+          <Logout />
+        </div>
+
+        <div className="w-[100%] my-2 h-[1px] bg-black mx-auto"></div>
+
+        <div className="text-xl font-semibold">Archived Chats</div>
 
         {archivedChats.map(
           (archived: { id: string; title: string; isArchived: boolean }) => (
