@@ -13,6 +13,9 @@ export const speakText = (text: string) => {
     const myTimeout = setTimeout(myTimer, 10000);
     const utterance = new SpeechSynthesisUtterance(text);
 
+    // Set the language (for example, to English)
+    utterance.lang = "en-US"; // You can set it to any supported language code
+
     utterance.onend = function () {
       clearTimeout(myTimeout);
     };
