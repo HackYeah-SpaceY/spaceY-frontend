@@ -10,7 +10,7 @@ export function OldChats() {
     return (
       <div className="flex" key={chat.id}>
         <Link
-          className="flex justify-center flex-col items-center px-4 my-1 hover:bg-[#4d5055]/50"
+          className="flex justify-center flex-col  items-center px-4 my-1 hover:bg-[#4d5055]/50"
           href={`/main/${chat.id}`}
         >
           <button key={chat.id}>
