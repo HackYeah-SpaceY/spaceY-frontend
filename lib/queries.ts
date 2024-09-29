@@ -218,3 +218,36 @@ export function useGetOldChats() {
     },
   });
 }
+
+export function useArchiveChat(id: string) {
+  const queryClient = useQueryClient();
+  const cookies = useCookies();
+
+  return useMutation({
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+    onError: (err) => {
+      toast.warning("Something went wrong, please try again.");
+      console.log(err);
+    },
+    mutationKey: ["archiveChat", id],
+    mutationFn: async () => {
+      const token = cookies.get("accessToken");
+
+      const response = await fetch(
+        `https://spaceywebapi-development.up.railway.app/chats/${id}/change-archived`,
+        {
+          method: "POST", // Set the method to POST
+          headers: {
+            accept: "*/*",
+            "Content-Type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      return response.status;
+    },
+  });
+}

@@ -9,7 +9,7 @@ export default async function Main({ params }: { params: { id: string } }) {
 
   return (
     <div className="w-full flex flex-col min-h-[100dvh] ">
-      <Navbar />
+      <Navbar id={id} />
 
       <CurrentURL id={id} />
 
