@@ -20,8 +20,6 @@ export function ChatScreenshots({ id }: { id: string }) {
       </div>
     );
 
-  console.log(history.data.screenshots);
-
   return (
     <div className="p-6 flex flex-col gap-y-9 max-h-[600px] pt-12 overflow-y-auto">
       {history.data?.screenshots?.map(
