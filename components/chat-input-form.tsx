@@ -61,7 +61,7 @@ export function ChatInputForm({ id }: { id?: string }) {
         value={input}
         onChange={(e) => setInput(e.target.value)}
         required
-        className="w-full flex justify-between items-center  px-4 font-sans border-2 p-2 h-10 rounded-none border-[#313235] "
+        className="w-full flex justify-between items-center bg-[#EDEDED]  px-4 font-sans border-2 p-2 h-10 rounded-none border-[#313235] "
         placeholder="What action to perform on the website?"
       />
       <Button
