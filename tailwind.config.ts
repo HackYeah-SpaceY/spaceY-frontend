@@ -56,6 +56,12 @@ const config: Config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      keyframes: {
+        slidein: {
+          "0%": { transform: "translateY(0)" },
+          "100%": { transform: "translateY(-50px)" },
+        },
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

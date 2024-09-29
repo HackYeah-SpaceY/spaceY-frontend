@@ -94,6 +94,49 @@ export function useSignIn() {
   });
 }
 
+export function useUpdateChat() {
+  const queryClient = useQueryClient();
+  const cookies = useCookies();
+
+  return useMutation({
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+    onError: (err) => {
+      toast.warning("Something went wrong, please try again.");
+      console.log(err);
+    },
+    mutationKey: ["updateChat"],
+    mutationFn: async ({
+      chatId,
+      content,
+    }: {
+      chatId: string;
+      content: string;
+    }) => {
+      const token = cookies.get("accessToken");
+
+      return await (
+        await fetch(
+          "https://spaceywebapi-development.up.railway.app/chats/messages",
+          {
+            method: "POST", // Set the method to POST
+            headers: {
+              accept: "*/*",
+              "Content-Type": "application/json",
+              authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              chatId: chatId,
+              content: content,
+            }), // Stringify the body
+          }
+        )
+      ).json();
+    },
+  });
+}
+
 export function useCreateChat() {
   const queryClient = useQueryClient();
   const cookies = useCookies();
@@ -132,7 +175,7 @@ export function useCreateChat() {
   });
 }
 
-export function useGetChat(id: string) {
+export function useGetChat(id?: string) {
   const cookies = useCookies();
 
   return useQuery({

@@ -41,11 +41,11 @@ export function AddChat() {
       </PopoverTrigger>
       <PopoverContent>
         <div className="flex flex-col gap-y-2 w-full">
-          <div>Enter website URL</div>
+          <div>Enter the full website URL</div>
           <Input
             type="url"
             required
-            placeholder="hackyeah.pl"
+            placeholder="https://hackyeah.pl"
             onChange={(e) => setInput(e.target.value)}
             className="border border-[#313235] py-2"
           />

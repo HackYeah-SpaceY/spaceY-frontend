@@ -1,6 +1,17 @@
+"use client";
+
+import { useGetChat } from "@/lib/queries";
 import { Globe } from "lucide-react";
 
-export function CurrentURL({ url }: { url?: string }) {
+export function CurrentURL({ id, url }: { id?: string; url?: string }) {
+  const chat = useGetChat(id);
+
+  const finalText = chat.data?.url
+    ? chat.data.url
+    : url
+    ? url
+    : "No website specified.";
+
   return (
     <div className="w-[80%] h-full  mx-auto pt-8">
       <div className="w-full h-12 flex">
@@ -8,7 +19,7 @@ export function CurrentURL({ url }: { url?: string }) {
           <Globe size={24} color="#EDEDED" />
         </div>
         <div className="w-full h-full text-[#313235] flex items-center pl-4 font-semibold bg-[#EDEDED]">
-          {url ? url : "No website specified."}
+          {finalText}
         </div>
       </div>
     </div>
